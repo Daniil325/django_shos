@@ -20,7 +20,6 @@ class Dictionary extends Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state);
         const baseURL = 'http://localhost:8000/api/word/' ;
         axios.get(baseURL + this.state.value)
             .then((response) => {
@@ -31,7 +30,6 @@ class Dictionary extends Component {
                     items: data[0]
                 });
             })
-        console.log(this.state.value);
         event.preventDefault();
     }
 

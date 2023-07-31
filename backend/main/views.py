@@ -1,13 +1,12 @@
 from django.db.models import Max
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from main.models import Words
-from main.serializers import WordsSerializer
+from main.models import *
+from main.serializers import *
 from main.pars import get_word
 
 
 class WordViewSet(APIView):
-
     def get(self, request, *args, **kwargs):
         word = kwargs['word']
         words = Words.objects.filter(word=word)
@@ -26,3 +25,9 @@ class WordViewSet(APIView):
             serializer = WordsSerializer(words, many=True)
             return Response(serializer.data)
 
+
+class CountryInfoViewSet(APIView):
+    def get(self, request):
+        result = CountryInfo.objects.filter(id=1)
+        serializer = CountryInfoSerializer(result, many=True)
+        return Response(serializer.data)

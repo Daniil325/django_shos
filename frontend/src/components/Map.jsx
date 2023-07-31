@@ -1,13 +1,34 @@
 import {VectorMap} from "@react-jvectormap/core";
 import {worldMill} from "@react-jvectormap/world";
-import React from "react";
-import {countries, markers} from "./countries";
+import React, {useEffect, useState} from "react";
+import {countries} from "./countries";
+import axios from "axios";
 
 
-function WorldMap() {
+const WorldMap = () => {
+    const [appState, setAppState] = useState(
+        {
+            loading: false,
+            persons: null,
+        });
+
+    useEffect(() => {
+        const apiUrl = 'http://localhost:8000/api/country_info';
+        axios.get(apiUrl).then((resp) => {
+            setAppState({
+                loading: false,
+                persons: resp.data,
+            });
+            console.log(resp.data[0])
+        });
+    }, [setAppState]);
+
+    if (!appState) return "No post!"
+
     return (
         <div className="wrapper">
 
+            {appState.map(el => <p>{el.id}</p>)}
             <div className='app-box hide'>
                 Информация о стране
 
@@ -240,7 +261,7 @@ function WorldMap() {
                                 a.innerHTML += '<p>' + b[i] + '</p>';
                             }
                             a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230513/943828/Generalnyy-sekretar-ShOS-Chzhan-Min-posetil-Kyrgyzskuyu-Respubliku.html">' + "Генеральный секретарь ШОС Чжан Мин посетил Кыргызскую Республику" + '</a></li>';
+                            a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230513/943828/Generalnyy-sekretar-ShOS-Chzhan-Min-posetil-Kyrgyzskuyu-Respubliku.html">' + "Генеральный секретарь ШОС Чжан Мин посетил Кыргызскую Республику" + '</a></li>';
                         }
                     }}
                 />
