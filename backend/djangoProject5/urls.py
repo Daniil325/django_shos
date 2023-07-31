@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import SimpleRouter
-from backend.main.views import WordViewSet
+from main.views import WordViewSet
 
 router = SimpleRouter()
 

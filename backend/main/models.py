@@ -21,4 +21,11 @@ class Country(models.Model):
 
 
 class CountryInfo(models.Model):
-    pass
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    president = models.CharField("Президент", max_length=500)
+    capital = models.CharField("Столица", max_length=500)
+    language = models.CharField("Язык", max_length=500)
+    valuta = models.CharField("Валюта", max_length=500)
+
+    def __str__(self):
+        return self.president

@@ -1,9 +1,9 @@
 from django.db.models import Max
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from backend.main.models import Words
-from backend.main.serializers import WordsSerializer
-from backend.main.pars import get_word
+from main.models import Words
+from main.serializers import WordsSerializer
+from main.pars import get_word
 
 
 class WordViewSet(APIView):
