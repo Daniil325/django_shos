@@ -26,6 +26,7 @@ class CountryInfo(models.Model):
     capital = models.CharField("Столица", max_length=500)
     language = models.CharField("Язык", max_length=500)
     valuta = models.CharField("Валюта", max_length=500)
+    code = models.CharField("Код страны", max_length=500, null=True, blank=True)
 
     def __str__(self):
         return self.president

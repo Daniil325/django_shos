@@ -5,6 +5,8 @@ from main.models import *
 from main.serializers import *
 from main.pars import get_word
 
+from main.models import CountryInfo
+
 
 class WordViewSet(APIView):
     def get(self, request, *args, **kwargs):
@@ -28,6 +30,6 @@ class WordViewSet(APIView):
 
 class CountryInfoViewSet(APIView):
     def get(self, request):
-        result = CountryInfo.objects.filter(id=1)
+        result = CountryInfo.objects.all()
         serializer = CountryInfoSerializer(result, many=True)
         return Response(serializer.data)

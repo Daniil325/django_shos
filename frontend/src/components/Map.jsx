@@ -6,29 +6,47 @@ import axios from "axios";
 
 
 const WorldMap = () => {
-    const [appState, setAppState] = useState(
-        {
-            loading: false,
-            persons: null,
-        });
+    const [countries, setCountries] = useState([]);
+
 
     useEffect(() => {
-        const apiUrl = 'http://localhost:8000/api/country_info';
-        axios.get(apiUrl).then((resp) => {
-            setAppState({
-                loading: false,
-                persons: resp.data,
-            });
-            console.log(resp.data[0])
-        });
-    }, [setAppState]);
+        axios
+            .get('http://127.0.0.1:8000/api/country_info')
+            .then(data =>{
+                setCountries(data.data);
 
-    if (!appState) return "No post!"
+            })
+    }, []);
+
+    const codes = countries.map(el => el.code);
+
+    function getInfoByCode(code){
+        for(let i in codes){
+            if(code == codes[i]){
+                return countries.filter(el => el.code == code)
+            }
+        }
+    }
+
+    const obj = {}
+    for (let i=0; i<8; i++){
+        let d = getInfoByCode(codes[i]);
+
+        obj[codes[i]] = d;
+    }
+
+    console.log(obj)
 
     return (
         <div className="wrapper">
+            <div>
+                {countries.map(el => {
+                    return(
+                        <p>{el.id}, {el.president}</p>
+                    );
+                })}
+            </div>
 
-            {appState.map(el => <p>{el.id}</p>)}
             <div className='app-box hide'>
                 Информация о стране
 
@@ -60,22 +78,18 @@ const WorldMap = () => {
                         {
                             latLng: [55.75222, 37.61556],
                             name: "Russia",
-
                         },
                         {
                             latLng: [39.9075, 116.39723],
                             name: "China",
-
                         },
                         {
                             latLng: [28.63576, 77.22445],
                             name: "India",
-
                         },
                         {
                             latLng: [51.1801, 71.446],
                             name: "Kazahstan",
-
                         },
                         {
                             latLng: [41.2646, 69.2163],
@@ -119,12 +133,13 @@ const WorldMap = () => {
                     }}
 
                     onRegionClick={function (event, code) {
+                        setCountries(code);
                         console.log(Object.keys(countries).includes(code));
                         if (Object.keys(countries).includes(code)) {
                             let a = document.querySelector(".app-box");
                             a.innerHTML = '';
                             a.classList.remove('hide');
-                            console.log(code);
+
                             let b = countries[code].split('\n');
                             console.log(b);
                             for (let i = 0; i < b.length; i++) {
