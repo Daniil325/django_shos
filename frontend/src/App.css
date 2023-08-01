@@ -89,7 +89,7 @@ html, body {
     padding: 10px;
 }
 
-.app-box.hide {
+.app-box.hide, .info.hide {
     display: none;
 }
 

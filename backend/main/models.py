@@ -30,3 +30,9 @@ class CountryInfo(models.Model):
 
     def __str__(self):
         return self.president
+
+
+class News(models.Model):
+    header = models.CharField("Заголовок", max_length=500)
+    text = models.TextField()
+

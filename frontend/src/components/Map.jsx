@@ -1,57 +1,37 @@
 import {VectorMap} from "@react-jvectormap/core";
 import {worldMill} from "@react-jvectormap/world";
 import React, {useEffect, useState} from "react";
-import {countries} from "./countries";
 import axios from "axios";
 
 
 const WorldMap = () => {
     const [countries, setCountries] = useState([]);
-
-
     useEffect(() => {
         axios
             .get('http://127.0.0.1:8000/api/country_info')
-            .then(data =>{
+            .then(data => {
                 setCountries(data.data);
 
             })
     }, []);
 
-    const codes = countries.map(el => el.code);
-
-    function getInfoByCode(code){
-        for(let i in codes){
-            if(code == codes[i]){
-                return countries.filter(el => el.code == code)
-            }
-        }
-    }
-
-    const obj = {}
-    for (let i=0; i<8; i++){
-        let d = getInfoByCode(codes[i]);
-
-        obj[codes[i]] = d;
-    }
-
-    console.log(obj)
-
     return (
         <div className="wrapper">
-            <div>
-                {countries.map(el => {
-                    return(
-                        <p>{el.id}, {el.president}</p>
-                    );
-                })}
-            </div>
-
-            <div className='app-box hide'>
-                Информация о стране
-
-            </div>
+            {countries.map(el => {
+                return (
+                    <div className="info hide" id={el.code}>
+                        Информация о стране
+                        <p>{el.president}</p>
+                        <p>{el.capital}</p>
+                        <p>{el.language}</p>
+                        <p>{el.valuta}</p>
+                    </div>
+                );
+            })}
             <div className="map_div">
+                <div className='app-box hide'>
+
+                </div>
                 <VectorMap
                     map={worldMill}
                     backgroundColor="SkyBlue"
@@ -133,19 +113,16 @@ const WorldMap = () => {
                     }}
 
                     onRegionClick={function (event, code) {
-                        setCountries(code);
-                        console.log(Object.keys(countries).includes(code));
-                        if (Object.keys(countries).includes(code)) {
+                        const countries_codes = ["RU", "KZ", "CN"]
+                        if (countries_codes.includes(code)) {
                             let a = document.querySelector(".app-box");
+                            let country_info = document.getElementById(code);
+
                             a.innerHTML = '';
                             a.classList.remove('hide');
+                            country_info.classList.remove('hide');
+                            a.appendChild(country_info)
 
-                            let b = countries[code].split('\n');
-                            console.log(b);
-                            for (let i = 0; i < b.length; i++) {
-                                a.innerHTML += '<p>' + b[i] + '</p>';
-
-                            }
                             if (code === "IN") {
                                 a.innerHTML += "<h3>" + 'Новости' + "</h3>"
                                 a.innerHTML += '<li><a href="http://rus.sectsco.org/cultural/20230628/947807/V-Sekretariate-ShOS-otkrylsya-zal-Nyu-Deli.html">' + "В Секретариате ШОС открылся зал «Нью-Дели»" + '</a></li>';
