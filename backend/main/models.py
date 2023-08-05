@@ -33,6 +33,8 @@ class CountryInfo(models.Model):
 
 
 class News(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     header = models.CharField("Заголовок", max_length=500)
-    text = models.TextField()
-
+    message = models.TextField()
+    pub_date = models.DateField()
+    post_image = models.ImageField(upload_to='images/%Y/%m/%d', null=True, blank=True)

@@ -6,6 +6,7 @@ import Map from "./components/Map";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Dictionary from "./components/Dictionary";
 import About from "./components/About";
+import NotFound from "./components/NotFound";
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                         <Route path='/map' element={<Map/>}/>
                         <Route path='/dictionary' element={<Dictionary/>}/>
                         <Route path='/' element={<About/>}/>
+                        <Route path='*' element={<NotFound/>}/>
                     </Routes>
                 </main>
             </div>
