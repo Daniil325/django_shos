@@ -9,12 +9,20 @@ class Words(models.Model):
     examples = models.JSONField()
     image_link = models.CharField(max_length=500)
 
+    class Meta:
+        verbose_name = 'Слово'
+        verbose_name_plural = 'Слова'
+
     def __str__(self):
         return self.word
 
 
 class Country(models.Model):
     name = models.CharField("Страна", max_length=500)
+
+    class Meta:
+        verbose_name = 'Страна'
+        verbose_name_plural = 'Страны'
 
     def __str__(self):
         return self.name
@@ -28,6 +36,10 @@ class CountryInfo(models.Model):
     valuta = models.CharField("Валюта", max_length=500)
     code = models.CharField("Код страны", max_length=500, null=True, blank=True)
 
+    class Meta:
+        verbose_name = 'Информация о стране'
+        verbose_name_plural = 'Информация о странах'
+
     def __str__(self):
         return self.president
 
@@ -38,3 +50,8 @@ class News(models.Model):
     message = models.TextField()
     pub_date = models.DateField()
     post_image = models.ImageField(upload_to='images/%Y/%m/%d', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'
+

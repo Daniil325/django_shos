@@ -6,17 +6,33 @@ import axios from "axios";
 
 const WorldMap = () => {
     const [countries, setCountries] = useState([]);
+
+    const [appState, setAppState] = useState([]);
+
+    const countries_id = {
+        1: "RU",
+        2: "KZ",
+        3: "CN",
+        4: "IN",
+        5: "TJ",
+        6: "UZ",
+        7: "PK",
+        8: "KG"
+    }
     useEffect(() => {
+
         axios
             .get('http://127.0.0.1:8000/api/country_info')
             .then(data => {
                 setCountries(data.data);
 
             })
+
     }, []);
 
     return (
         <div className="wrapper">
+
             {countries.map(el => {
                 return (
                     <div className="info hide" id={el.code}>
@@ -25,6 +41,8 @@ const WorldMap = () => {
                         <p>{el.capital}</p>
                         <p>{el.language}</p>
                         <p>{el.valuta}</p>
+                        <h3>Новости</h3>
+
                     </div>
                 );
             })}
@@ -113,51 +131,19 @@ const WorldMap = () => {
                     }}
 
                     onRegionClick={function (event, code) {
-                        const countries_codes = ["RU", "KZ", "CN"]
+                        const countries_codes = ["RU", "KZ", "CN", "IN", "TJ", "KG", "PK", "UZ"]
                         if (countries_codes.includes(code)) {
+
                             let a = document.querySelector(".app-box");
                             let country_info = document.getElementById(code);
 
-                            a.innerHTML = '';
+                            console.log(country_info);
+
                             a.classList.remove('hide');
                             country_info.classList.remove('hide');
-                            a.appendChild(country_info)
 
-                            if (code === "IN") {
-                                a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/cultural/20230628/947807/V-Sekretariate-ShOS-otkrylsya-zal-Nyu-Deli.html">' + "В Секретариате ШОС открылся зал «Нью-Дели»" + '</a></li>';
-                            }
-                            if (code === "UZ") {
-                                a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230710/950979/Vstrecha-Generalnogo-sekretarya-ShOS-s-Ministrom-inostrannykh-del-Respubliki-Uzbekistan-.html">' + "Встреча Генерального секретаря ШОС с Министром иностранных дел Республики Узбекистан" + '</a></li>';
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230708/950374/O-nachale-nablyudatelnoy-raboty-Missii-ot-ShOS-v-Respublike-Uzbekistan.html">' + "О начале наблюдательной работы Миссии от ШОС в Республике Узбекистан" + '</a></li>';
-                            }
-                            if (code === "KZ") {
-                                a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230614/946339/Generalnyy-sekretar-ShOS-vstretilsya-s-zamestitelem-Ministra-inostrannykh-del-Respubliki-Kazakhstan.html">' + "Генеральный секретарь ШОС встретился с заместителем Министра иностранных дел Республики Казахстан" + '</a></li>';
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230318/934441/Missiya-nablyudateley-ot-ShOS-v-Kazakhstane.html">' + "Миссия наблюдателей от ШОС в Казахстане" + '</a></li>';
-                            }
-                            if (code === "PK") {
-                                a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230507/942814/Vstrecha-Generalnogo-sekretarya-ShOS-s-Ministrom-inostrannykh-del-Islamskoy-Respubliki-Pakistan-B.html">' + "Встреча Генерального секретаря ШОС с Министром иностранных дел Исламской Республики Пакистан Б. Бхутто-Зардари" + '</a></li>';
-                            }
-                            if (code === "TJ") {
-                                a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230427/940197/Mezhvedomstvennye-konsultatsii-po-voprosu-sozdaniya-Antinarkoticheskogo-tsentra-ShOS-v-gorode-Dushanbe.html">' + "Межведомственные консультации по вопросу создания Антинаркотического центра ШОС в городе Душанбе" + '</a></li>';
-                            }
-                            if (code === "CN") {
-                                a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230607/945929/Generalnyy-sekretar-ShOS-Chzhan-Min-vstretilsya-s-Poslom-Alzhira-v-Kitae-Khassanom-Rabekhi.html">' + "Генеральный секретарь ШОС Чжан Мин встретился с Послом Алжира в Китае Хассаном Рабехи" + '</a></li>';
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230523/944760/Vstrecha-Generalnogo-sekretarya-ShOS-s-Poslom-Islamskoy-Respubliki-Iran-v-Kitayskoy-Narodnoy.html">' + "Встреча Генерального секретаря ШОС с Послом Исламской Республики Иран в Китайской Народной Республике\n" + '</a></li>';
-                            }
-                            if (code === "RU") {
-                                a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/media_SCO/20230427/940272/Generalnyy-sekretar-ShOS-otvetil-na-voprosy-agentstva-Sputnik-.html">' + "Генеральный секретарь ШОС ответил на вопросы агентства Sputnik" + '</a></li>';
-                            }
-                            if (code === "KG") {
-                                a.innerHTML += "<h3>" + 'Новости' + "</h3>"
-                                a.innerHTML += '<li><a href="http://rus.sectsco.org/political/20230513/943828/Generalnyy-sekretar-ShOS-Chzhan-Min-posetil-Kyrgyzskuyu-Respubliku.html">' + "Генеральный секретарь ШОС Чжан Мин посетил Кыргызскую Республику" + '</a></li>';
-                            }
+                            a.appendChild(country_info);
+
                         }
 
 

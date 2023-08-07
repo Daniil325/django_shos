@@ -79,18 +79,23 @@ html, body {
 .map_div {
     width: 600px;
     height: 500px;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .app-box {
-    width: 250px;
     background: #77d197;
-    height: 480px;
+
     display: block;
     padding: 10px;
 }
 
 .app-box.hide, .info.hide {
     display: none;
+}
+
+.info{
+    width: 250px;
 }
 
 .wrapper {
@@ -226,4 +231,40 @@ input[type="text"] {
 .ggg{
     display: flex;
     gap: 5px;
+}
+
+.news-wrapper{
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.news-item{
+    border: #1c6a6a 1px solid;
+    padding: 10px;
+    justify-content: center;
+}
+
+.news-image{
+    height: auto;
+    width: 100%;
+    max-width: 720px;
+}
+
+.news-link{
+    text-decoration: none;
+    color: #212529;
+}
+
+.news-link:hover{
+    color: orange;
+    transition: 0.5s;
+}
+
+.news-date{
+    padding-top: 5px;
+}
+
+.news_list_map{
+    padding-left: 20px;
 }
