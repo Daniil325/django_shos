@@ -6,6 +6,7 @@ const Navbar = () => {
             <p className="navbar-item"><a className="navbar-link" href="/">О сайте</a></p>
             <p className="navbar-item"><a className="navbar-link" href="/Map">Карта</a></p>
             <p className="navbar-item"><a className="navbar-link" href="/Dictionary">Интерактивный словарь</a></p>
+            <p className="navbar-item"><a className="navbar-link" href="/newslist">Новости</a></p>
         </div>
     )
 }

@@ -2,14 +2,18 @@ import {VectorMap} from "@react-jvectormap/core";
 import {worldMill} from "@react-jvectormap/world";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import About from "./About";
+import AllNews from "./AllNews";
 
 
 const WorldMap = () => {
     const [countries, setCountries] = useState([]);
+    const [fff, setfff] = useState([]);
 
-    const [appState, setAppState] = useState([]);
 
-    const countries_id = {
+    let codes_list = []
+
+     const countries_id = {
         1: "RU",
         2: "KZ",
         3: "CN",
@@ -19,37 +23,44 @@ const WorldMap = () => {
         7: "PK",
         8: "KG"
     }
+
+
     useEffect(() => {
-
-        axios
-            .get('http://127.0.0.1:8000/api/country_info')
-            .then(data => {
-                setCountries(data.data);
-
-            })
-
+        axios.get('http://127.0.0.1:8000/api/country_info').then(data => {
+            setCountries(data.data);
+        })
+        axios.get('http://127.0.0.1:8000/api/news').then(eee => {
+            setfff(eee.data);
+        })
     }, []);
 
     return (
         <div className="wrapper">
 
-            {countries.map(el => {
-                return (
-                    <div className="info hide" id={el.code}>
-                        Информация о стране
-                        <p>{el.president}</p>
-                        <p>{el.capital}</p>
-                        <p>{el.language}</p>
-                        <p>{el.valuta}</p>
-                        <h3>Новости</h3>
-
-                    </div>
-                );
-            })}
             <div className="map_div">
-                <div className='app-box hide'>
+                {countries.map(el => {
 
-                </div>
+                    return (
+                        <div className="info hide" id={el.code}>
+                            Информация о стране
+                            <p>Президент: {el.president}</p>
+                            <p>Столица: {el.capital}</p>
+                            <p>Язык: {el.language}</p>
+                            <p>Валюта: {el.valuta}</p>
+                            <h3>Новости</h3>
+                            {fff.map(ell => {
+                                if (ell.country === el.country){
+                                    return(
+                                        <ul>
+                                            <li className="aaa_item"><a href={"post/" + ell.id}>{ell.header}</a></li>
+                                        </ul>
+
+                                    )
+                                }
+                            })}
+                        </div>
+                    );
+                })}
                 <VectorMap
                     map={worldMill}
                     backgroundColor="SkyBlue"
@@ -134,21 +145,26 @@ const WorldMap = () => {
                         const countries_codes = ["RU", "KZ", "CN", "IN", "TJ", "KG", "PK", "UZ"]
                         if (countries_codes.includes(code)) {
 
-                            let a = document.querySelector(".app-box");
+                            codes_list.push(code);
+
                             let country_info = document.getElementById(code);
+                            let country_news = document.querySelector(code);
 
-                            console.log(country_info);
+                            console.log(country_news)
 
-                            a.classList.remove('hide');
                             country_info.classList.remove('hide');
 
-                            a.appendChild(country_info);
 
+                            if (codes_list.length === 2) {
+                                let country_info = document.getElementById(codes_list[0]);
+                                country_info.classList.add('hide');
+                                codes_list.shift();
+                            }
                         }
-
 
                     }}
                     onMarkerClick={function (event, code) {
+
                         console.log(code);
                         if (code == 0) {
                             let a = document.querySelector(".app-box");

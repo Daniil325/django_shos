@@ -30,4 +30,4 @@ class CountryInfoAdmin(ModelAdmin):
 
 @admin.register(News)
 class NewsAdmin(ModelAdmin):
-    form = PostAdminForm
+    pass

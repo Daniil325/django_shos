@@ -76,26 +76,27 @@ html, body {
     width: 100%;
 }
 
-.map_div {
-    width: 600px;
-    height: 500px;
-    display: flex;
-    flex-direction: row-reverse;
-}
-
-.app-box {
-    background: #77d197;
-
-    display: block;
-    padding: 10px;
-}
-
-.app-box.hide, .info.hide {
+.info.hide {
     display: none;
 }
 
 .info{
-    width: 250px;
+    background: #77d197;
+    display: block;
+
+    padding: 10px;
+    width: 440px;
+}
+
+.map_div {
+    width: 900px;
+    height: calc(500px);
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.jvectormap-container{
+    width: 600px !important;
 }
 
 .wrapper {
@@ -236,7 +237,7 @@ input[type="text"] {
 .news-wrapper{
     display: grid;
     gap: 30px;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, minmax(200px, 350px));
 }
 
 .news-item{
@@ -267,4 +268,13 @@ input[type="text"] {
 
 .news_list_map{
     padding-left: 20px;
+}
+
+.post-wrapper{
+    padding: 10px;
+}
+
+.aaa_item{
+    padding-left: 10px;
+    padding-bottom: 10px;
 }
