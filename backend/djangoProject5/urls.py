@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/word/<str:word>', WordViewSet.as_view(), name='words'),
     path('api/country_info', CountryInfoViewSet.as_view(), name='countryInfos'),
+    path('ckedotor/', include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:
